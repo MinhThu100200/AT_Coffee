@@ -30,6 +30,8 @@ dependencies:
   url_launcher_web: ^2.0.9
   url_launcher: ^6.0.20
   http: ^0.13.4
+  firebase_core: ^1.13.1
+  cloud_firestore: ^3.1.10
   flutter:
     sdk: flutter
 
