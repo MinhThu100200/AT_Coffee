@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:at_coffee/common/theme/colors.dart';
 
@@ -43,9 +44,10 @@ class _RootAppState extends State<RootApp> {
 
   Widget getFooter() {
     List items = [
-      Icons.check_circle,
+      Icons.home_filled,
+      CupertinoIcons.gift,
       Icons.add,
-      Icons.content_paste,
+      Icons.notifications,
       Icons.account_circle
     ];
     return Container(
