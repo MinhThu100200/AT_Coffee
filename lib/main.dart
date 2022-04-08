@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:at_coffee/common/theme/colors.dart';
 import 'package:at_coffee/screens/on_boarding.dart';
 import 'package:flutter/material.dart';
 
@@ -41,9 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Container(
           decoration: BoxDecoration(
+              color: primary,
               image: DecorationImage(
-            image: AssetImage('assets/images/logo.png'),
-          )),
+                image: AssetImage('assets/images/logo.png'),
+              )),
         ),
       ),
     );

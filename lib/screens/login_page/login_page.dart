@@ -57,15 +57,15 @@ class _loginPageState extends State<loginPage> {
             child: Column(
               children: [
                 Container(
-                  height: (size.height - 60) * 0.5,
+                  height: (size.height - 30) * 0.5,
                   child: Column(
                     children: [
                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              width: 120,
-                              height: 120,
+                              width: 150,
+                              height: 150,
                               child: Image.asset(
                                 "assets/images/logo.png",
                                 fit: BoxFit.cover,
@@ -214,7 +214,7 @@ class _loginPageState extends State<loginPage> {
                             height: 50,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                                color: Colors.red[400],
+                                color: primary,
                                 borderRadius: BorderRadius.circular(30)),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

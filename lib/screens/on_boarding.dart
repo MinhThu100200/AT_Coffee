@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:at_coffee/screens/login_page/login_page.dart';
+import 'package:lottie/lottie.dart';
 
 class Onboarding extends StatelessWidget {
   @override
@@ -34,9 +35,12 @@ class _onboardingState extends State<onboarding> {
                 child: PageView(
                   controller: _pageController,
                   children: [
-                    onBoardPage("onboard1", "Chayoo xin chào"),
-                    onBoardPage("onboard2", "Công việc của bạn"),
-                    onBoardPage("onboard3", "Quản lý công việc"),
+                    onBoardPage("onboard1", "Nhận ưu đãi hấp dẫn",
+                        "Cập nhật liên tục ưu đãi một cách nhanh chóng <3"),
+                    onBoardPage("onboard2", "Mọi lúc mọi nơi",
+                        'Đặt món bất kể khi nào và nơi đâu'),
+                    onBoardPage("onboard3", "Trải nghiệm khác biệt",
+                        'Tận hưởng những trãi nghiệm của riêng bạn'),
                   ],
                   onPageChanged: (value) => {setCurrentPage(value)},
                 ),
@@ -53,15 +57,18 @@ class _onboardingState extends State<onboarding> {
             right: 0,
             child: Container(
               margin: EdgeInsets.only(top: 20),
-              height: 300,
+              height: 420,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/images/path1.png'),
+                      image: AssetImage('assets/images/path.png'),
                       fit: BoxFit.fill)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: 70,
+                  ),
                   InkWell(
                     onTap: openLoginPage,
                     child: Container(
@@ -114,23 +121,28 @@ class _onboardingState extends State<onboarding> {
     );
   }
 
-  Column onBoardPage(String img, String title) {
+  Column onBoardPage(String img, String title, String content) {
+    String uriAnimation = (img == 'onboard1'
+        ? 'assets/animations/gift.json'
+        : img == 'onboard2'
+            ? 'assets/animations/comportable.json'
+            : 'assets/animations/cool.json');
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          height: 20,
+          height: 70,
         ),
         Container(
           height: 200,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.all(50),
-          decoration: BoxDecoration(
-              image:
-                  DecorationImage(image: AssetImage('assets/images/$img.png'))),
-        ),
-        SizedBox(
-          height: 50,
+          padding: EdgeInsets.all(20),
+          child: Center(
+            child: Lottie.asset(
+              uriAnimation,
+              height: 150,
+            ),
+          ),
         ),
         Container(
           padding: EdgeInsets.symmetric(vertical: 10),
@@ -142,7 +154,7 @@ class _onboardingState extends State<onboarding> {
         Container(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
           child: Text(
-            "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text",
+            content,
             style: TextStyle(fontSize: 16, color: Colors.grey),
             textAlign: TextAlign.center,
           ),
