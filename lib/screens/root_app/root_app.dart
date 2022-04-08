@@ -75,7 +75,7 @@ class _RootAppState extends State<RootApp> {
                   Icon(
                     items[index],
                     size: 28,
-                    color: pageIndex == index ? thirdColor : black,
+                    color: pageIndex == index ? primary : black,
                   ),
                   SizedBox(
                     height: 5,
@@ -85,7 +85,7 @@ class _RootAppState extends State<RootApp> {
                           width: 6,
                           height: 6,
                           decoration: BoxDecoration(
-                              color: thirdColor, shape: BoxShape.circle),
+                              color: primary, shape: BoxShape.circle),
                         )
                       : Container()
                 ],
