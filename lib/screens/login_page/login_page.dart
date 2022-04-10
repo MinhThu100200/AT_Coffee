@@ -2,25 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:at_coffee/screens/on_boarding.dart';
 import 'package:at_coffee/common/theme/colors.dart';
-import "package:at_coffee/router.dart" as router;
+import 'package:at_coffee/screens/signup_page/sign_up_page.dart';
+import 'package:at_coffee/screens/root_app/root_app.dart';
 
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'avenir'),
-        home: loginPage(),
-        onGenerateRoute: router.generateRoute);
-  }
-}
+// class LoginPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         home: loginPage(),
+//         onGenerateRoute: router.generateRoute);
+//   }
+// }
 
-class loginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key key}) : super(key: key);
   @override
   _loginPageState createState() => _loginPageState();
 }
 
-class _loginPageState extends State<loginPage> {
+class _loginPageState extends State<LoginPage> {
   final _email = TextEditingController();
   bool _validateEmail = false;
   final _password = TextEditingController();
@@ -37,19 +38,19 @@ class _loginPageState extends State<loginPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: openOnboarding,
-        ),
-      ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -206,8 +207,10 @@ class _loginPageState extends State<loginPage> {
                             });
                             if (!_password.text.isEmpty &&
                                 !_email.text.isEmpty) {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, "/root_app", (route) => false);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => new RootApp()));
                             }
                           },
                           child: Container(
@@ -313,7 +316,7 @@ class _loginPageState extends State<loginPage> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: openSignUp,
                               child: Text(
                                 "Đăng ký",
                                 style: TextStyle(
@@ -340,6 +343,11 @@ class _loginPageState extends State<loginPage> {
 
   void openOnboarding() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Onboarding()));
+        context, MaterialPageRoute(builder: (context) => new Onboarding()));
+  }
+
+  void openSignUp() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => new SignUpPage()));
   }
 }

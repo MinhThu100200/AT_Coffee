@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:at_coffee/screens/login_page/login_page.dart';
+import 'package:at_coffee/screens/signup_page/sign_up_page.dart';
 import 'package:lottie/lottie.dart';
 
 class Onboarding extends StatelessWidget {
@@ -93,12 +94,15 @@ class _onboardingState extends State<onboarding> {
                   SizedBox(
                     height: 30,
                   ),
-                  Text(
-                    "Đăng ký",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                  InkWell(
+                    onTap: openSignUp,
+                    child: Text(
+                      "Đăng ký",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               ),
@@ -168,8 +172,13 @@ class _onboardingState extends State<onboarding> {
     setState(() {});
   }
 
+  openSignUp() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => new SignUpPage()));
+  }
+
   openLoginPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+        context, MaterialPageRoute(builder: (context) => new LoginPage()));
   }
 }
