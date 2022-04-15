@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:at_coffee/common/theme/colors.dart';
+import 'package:at_coffee/screens/location_page/location_page.dart';
+import 'package:at_coffee/screens/order_page/order_page.dart';
+import 'package:at_coffee/screens/products_page/products_page.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key key}) : super(key: key);
@@ -14,24 +17,20 @@ class _RootAppState extends State<RootApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: getBody(),
+      body: getBody(context),
       bottomNavigationBar: getFooter(),
     );
   }
 
-  Widget getBody() {
+  Widget getBody(BuildContext context) {
     return IndexedStack(
       index: pageIndex,
       children: [
-        Center(
-          child: Text("Home page"),
-        ),
+        ProductsPage(),
         Center(
           child: Text("Reward page"),
         ),
-        Center(
-          child: Text("Location page"),
-        ),
+        LocationPage(),
         Center(
           child: Text("Notification Page"),
         ),

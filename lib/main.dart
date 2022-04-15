@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:at_coffee/common/theme/colors.dart';
 import 'package:at_coffee/screens/on_boarding.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,10 +16,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       // theme: ThemeData(fontFamily: 'avenir'),
-      home: MyHomePage(),
+      initialRoute: "/",
+      getPages: [GetPage(name: '/', page: () => MyHomePage())],
     );
   }
 }
@@ -52,7 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void openOnBoard() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Onboarding()));
+    Get.off(Onboarding());
   }
 }
