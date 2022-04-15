@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:at_coffee/controllers/category_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:at_coffee/common/theme/colors.dart';
 import 'package:at_coffee/screens/on_boarding.dart';
@@ -40,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: Center(
         child: Container(
@@ -54,6 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void openOnBoard() {
-    Get.off(Onboarding());
+    Get.off(() => Onboarding());
   }
 }

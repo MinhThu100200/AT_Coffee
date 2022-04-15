@@ -4,6 +4,7 @@ import 'package:at_coffee/screens/on_boarding.dart';
 import 'package:at_coffee/common/theme/colors.dart';
 import 'package:at_coffee/screens/signup_page/sign_up_page.dart';
 import 'package:at_coffee/screens/root_app/root_app.dart';
+import 'package:get/get.dart';
 
 // class LoginPage extends StatelessWidget {
 //   @override
@@ -207,10 +208,7 @@ class _loginPageState extends State<LoginPage> {
                             });
                             if (!_password.text.isEmpty &&
                                 !_email.text.isEmpty) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => new RootApp()));
+                              Get.off(() => new RootApp());
                             }
                           },
                           child: Container(
@@ -341,13 +339,7 @@ class _loginPageState extends State<LoginPage> {
   //       context, MaterialPageRoute(builder: (context) => ForgotPassword()));
   // }
 
-  void openOnboarding() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => new Onboarding()));
-  }
-
   void openSignUp() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => new SignUpPage()));
+    Get.to(() => SignUpPage());
   }
 }

@@ -4,6 +4,7 @@ import 'package:at_coffee/screens/on_boarding.dart';
 import 'package:at_coffee/screens/login_page/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:at_coffee/common/theme/colors.dart';
+import 'package:get/get.dart';
 
 // class SignUpPage extends StatelessWidget {
 //   @override
@@ -395,7 +396,6 @@ class _signupPageState extends State<SignUpPage> {
   // }
 
   void openLoginPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+    Get.to(() => LoginPage());
   }
 }

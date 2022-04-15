@@ -1,4 +1,6 @@
+import 'package:at_coffee/controllers/category_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:at_coffee/common/theme/colors.dart';
 import 'package:at_coffee/screens/products_page/products_page_class.dart';
@@ -113,6 +115,7 @@ class _ProductsPage extends State<ProductsPage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final CategoryController categoryController = Get.put(CategoryController());
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(

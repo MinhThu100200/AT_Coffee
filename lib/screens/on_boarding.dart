@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:at_coffee/screens/login_page/login_page.dart';
 import 'package:at_coffee/screens/signup_page/sign_up_page.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class Onboarding extends StatelessWidget {
@@ -173,12 +174,10 @@ class _onboardingState extends State<onboarding> {
   }
 
   openSignUp() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => new SignUpPage()));
+    Get.to(() => SignUpPage());
   }
 
   openLoginPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => new LoginPage()));
+    Get.to(() => LoginPage());
   }
 }
