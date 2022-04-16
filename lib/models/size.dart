@@ -6,10 +6,10 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-List<Size> productFromJson(String str) =>
+List<Size> sizeFromJson(String str) =>
     List<Size>.from(json.decode(str).map((x) => Size.fromJson(x)));
 
-String productToJson(List<Size> data) =>
+String sizeToJson(List<Size> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Size {
@@ -28,8 +28,8 @@ class Size {
   });
 
   int id;
-  Timestamp createdDate;
-  Timestamp modifiedDate;
+  int createdDate;
+  int modifiedDate;
   String createdBy;
   String modifiedBy;
   dynamic code;

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:at_coffee/common/theme/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:at_coffee/screens/products_page/products_page_class.dart';
+import 'package:at_coffee/models/product.dart';
 
 class OrderPage extends StatefulWidget {
   OrderPage({Key key, this.product}) : super(key: key);

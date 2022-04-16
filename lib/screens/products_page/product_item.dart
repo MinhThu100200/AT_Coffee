@@ -1,7 +1,7 @@
 import 'package:at_coffee/screens/order_page/order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:at_coffee/screens/products_page/products_page_class.dart';
+import 'package:at_coffee/models/product.dart';
 import 'package:at_coffee/screens/order_page/order_page.dart';
 import 'package:at_coffee/common/theme/colors.dart';
 
@@ -120,7 +120,7 @@ class _ProductItem extends State<ProductItem> {
                               Text(
                                   _product.rate.toString() +
                                       "★★★★/" +
-                                      _product.count.toString() +
+                                      "6" +
                                       " đánh giá",
                                   style: const TextStyle(
                                       fontSize: 12,
@@ -142,8 +142,24 @@ class _ProductItem extends State<ProductItem> {
                     child: Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(_product.image,
-                              fit: BoxFit.contain)),
+                          child:
+                              Image.network(_product.image, fit: BoxFit.contain,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes
+                                      : null,
+                                ),
+                              );
+                          })),
                     ),
                   ),
                   Positioned(

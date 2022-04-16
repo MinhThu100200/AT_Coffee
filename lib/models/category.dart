@@ -42,6 +42,7 @@ class Category {
         createdBy: json["createdBy"],
         modifiedBy: json["modifiedBy"],
         code: json["code"],
+        state: json["state"],
         results: json["results"],
         name: json["name"],
       );
@@ -51,7 +52,9 @@ class Category {
         "createdDate": createdDate,
         "modifiedDate": modifiedDate,
         "createdBy": createdBy,
+        "modifiedBy": modifiedBy,
         "code": code,
+        "state": state,
         "results": results,
         "name": name,
       };

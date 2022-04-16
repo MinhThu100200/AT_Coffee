@@ -1,9 +1,11 @@
 import 'package:at_coffee/controllers/category_controller.dart';
+import 'package:at_coffee/controllers/product_controller.dart';
+import 'package:at_coffee/controllers/store_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:at_coffee/common/theme/colors.dart';
-import 'package:at_coffee/screens/products_page/products_page_class.dart';
+import 'package:at_coffee/models/product.dart';
 import 'package:at_coffee/screens/products_page/product_item.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -15,107 +17,12 @@ class ProductsPage extends StatefulWidget {
 class _ProductsPage extends State<ProductsPage> {
   final oCcy = NumberFormat.currency(locale: 'vi', symbol: 'đ');
 
-  List<Category> _categories = [
-    new Category(id: 1, name: 'Cà phê'),
-    new Category(id: 2, name: 'Trà sữa'),
-    new Category(id: 3, name: 'Nước ép')
-  ];
-
-  List<Product> _products = [
-    new Product(
-        id: 1,
-        name: "Cà phê đen",
-        description:
-            "Cà phê chất lượng đến từ vùng đất cà phê đỉnh chóp của Việt Nam. Hương vị mê ly động lòng người uống.",
-        image:
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637475332/ncuzidudzgrikehrg1in.png",
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637471055/ssqf7s62lzskmro1qzjl.png",
-            "https://res.cloudinary.com/tranan2509/image/upload/v1637471428/knm8qhneddobu7n26orr.png",
-        price: 70000,
-        discount: 15,
-        rate: 4,
-        count: 50,
-        sizes: [
-          new Size(size: "S", price: 15000),
-          new Size(size: "M", price: 20000),
-          new Size(size: "L", price: 25000)
-        ]),
-    new Product(
-        id: 2,
-        name: "Cà phê đen 2",
-        description:
-            "Cà phê chất lượng đến từ vùng đất cà phê đỉnh chóp của Việt Nam. Hương vị mê ly động lòng người uống.",
-        image:
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637475332/ncuzidudzgrikehrg1in.png",
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637471055/ssqf7s62lzskmro1qzjl.png",
-            "https://res.cloudinary.com/tranan2509/image/upload/v1637471428/knm8qhneddobu7n26orr.png",
-        price: 70000,
-        discount: 0,
-        rate: 4,
-        count: 50,
-        sizes: [
-          new Size(size: "S", price: 15000),
-          new Size(size: "M", price: 20000),
-          new Size(size: "L", price: 25000)
-        ]),
-    new Product(
-        id: 3,
-        name: "Cà phê đen 3",
-        description:
-            "Cà phê chất lượng đến từ vùng đất cà phê đỉnh chóp của Việt Nam. Hương vị mê ly động lòng người uống.",
-        image:
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637475332/ncuzidudzgrikehrg1in.png",
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637471055/ssqf7s62lzskmro1qzjl.png",
-            "https://res.cloudinary.com/tranan2509/image/upload/v1637471428/knm8qhneddobu7n26orr.png",
-        price: 70000,
-        discount: 5,
-        rate: 4,
-        count: 50,
-        sizes: [
-          new Size(size: "S", price: 15000),
-          new Size(size: "M", price: 20000),
-          new Size(size: "L", price: 25000)
-        ]),
-    new Product(
-        id: 4,
-        name: "Cà phê đen 4",
-        description:
-            "Cà phê chất lượng đến từ vùng đất cà phê đỉnh chóp của Việt Nam. Hương vị mê ly động lòng người uống.",
-        image:
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637475332/ncuzidudzgrikehrg1in.png",
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637471055/ssqf7s62lzskmro1qzjl.png",
-            "https://res.cloudinary.com/tranan2509/image/upload/v1637471428/knm8qhneddobu7n26orr.png",
-        price: 70000,
-        discount: 5,
-        rate: 4,
-        count: 50,
-        sizes: [
-          new Size(size: "S", price: 15000),
-          new Size(size: "M", price: 20000),
-          new Size(size: "L", price: 25000)
-        ]),
-    new Product(
-        id: 5,
-        name: "Cà phê đen 5",
-        description:
-            "Cà phê chất lượng đến từ vùng đất cà phê đỉnh chóp của Việt Nam. Hương vị mê ly động lòng người uống.",
-        image:
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637475332/ncuzidudzgrikehrg1in.png",
-            //"https://res.cloudinary.com/tranan2509/image/upload/v1637471055/ssqf7s62lzskmro1qzjl.png",
-            "https://res.cloudinary.com/tranan2509/image/upload/v1637471428/knm8qhneddobu7n26orr.png",
-        price: 70000,
-        discount: 10,
-        rate: 4,
-        count: 50,
-        sizes: [
-          new Size(size: "S", price: 17000),
-          new Size(size: "M", price: 19000),
-          new Size(size: "L", price: 23000)
-        ])
-  ];
   @override
   Widget build(BuildContext context) {
     final CategoryController categoryController = Get.put(CategoryController());
+    final StoreController storeController = Get.put(StoreController());
+    final ProductController productController = Get.put(ProductController());
+
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -180,12 +87,19 @@ class _ProductsPage extends State<ProductsPage> {
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40)),
                         color: white),
-                    child: ListView.builder(
-                        itemCount: _products.length,
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ProductItem(product: _products[index]);
-                        }),
+                    child: Obx(() {
+                      if (productController.isLoading.value)
+                        return Center(child: CircularProgressIndicator());
+                      else
+                        return ListView.builder(
+                            itemCount: productController.productsList.length,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ProductItem(
+                                  product:
+                                      productController.productsList[index]);
+                            });
+                    }),
                   ),
                 ),
               ],
