@@ -16,12 +16,25 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPage extends State<ProductsPage> {
   final oCcy = NumberFormat.currency(locale: 'vi', symbol: 'đ');
+  int indexCategory = 0;
+  var nameImage = [
+    "assets/images/coffee.png",
+    "assets/images/bubble-tea.png",
+    "assets/images/smoothie.png"
+  ];
+  var codeCategory = ['COFFEE', 'MILKTEA', 'JUICE'];
+
+  void setStateValue(value) {
+    indexCategory = value;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     final CategoryController categoryController = Get.put(CategoryController());
-    final StoreController storeController = Get.put(StoreController());
+    // final StoreController storeController = Get.put(StoreController());
     final ProductController productController = Get.put(ProductController());
+    productController.fetchProductsByCategory("COFFEE");
 
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -56,17 +69,6 @@ class _ProductsPage extends State<ProductsPage> {
                     )
                   ]),
                 )),
-                // Expanded(
-                //   flex: 1,
-                //   child: ListView.builder(
-                //     itemCount: _categories.length,
-                //     scrollDirection: Axis.horizontal,
-                //     shrinkWrap: true,
-                //     itemBuilder: (BuildContext context, int index) {
-                //       return Text(_categories[index].name);
-                //     },
-                //   ),
-                // ),
                 Container(
                   padding: const EdgeInsets.only(
                       left: 15, right: 15, top: 10, bottom: 10),
@@ -79,26 +81,105 @@ class _ProductsPage extends State<ProductsPage> {
                       style: TextStyle(fontSize: 18, color: primary)),
                 ),
                 Expanded(
-                  //flex: 1,
                   child: Container(
-                    padding: const EdgeInsets.only(top: 10.0),
+                    padding: const EdgeInsets.only(top: 20.0),
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40)),
                         color: white),
                     child: Obx(() {
-                      if (productController.isLoading.value)
+                      if (categoryController.isLoading.value)
                         return Center(child: CircularProgressIndicator());
                       else
-                        return ListView.builder(
-                            itemCount: productController.productsList.length,
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ProductItem(
-                                  product:
-                                      productController.productsList[index]);
-                            });
+                        return Flex(
+                          direction: Axis.vertical,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  top: 10, left: 10, right: 10),
+                              height: 70,
+                              child: Center(
+                                child: ListView.builder(
+                                  itemCount:
+                                      categoryController.categoriesList.length,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        setStateValue(index);
+                                        productController
+                                            .fetchProductsByCategory(
+                                                codeCategory[index]);
+                                      },
+                                      child: Container(
+                                        //width: 100,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: indexCategory == index
+                                              ? primary
+                                              : lightGray3,
+                                        ),
+                                        margin: const EdgeInsets.only(
+                                            right: 15, bottom: 10),
+                                        padding: const EdgeInsets.all(10),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 50,
+                                              width: 32,
+                                              padding: EdgeInsets.only(
+                                                top: index == 0 ? 8 : 5,
+                                                bottom: 5,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                  color: indexCategory == index
+                                                      ? lightGreen
+                                                      : lightGreen2),
+                                              child: Image.asset(
+                                                  nameImage[index].toString(),
+                                                  //height: index == 0 ? 30 : 50,
+                                                  fit: BoxFit.fitHeight),
+                                            ),
+                                            Text(
+                                                categoryController
+                                                    .categoriesList[index].name,
+                                                style: TextStyle(fontSize: 16)),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            Obx(() {
+                              if (productController.isLoading.value)
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              else
+                                return Expanded(
+                                  child: Container(
+                                    child: ListView.builder(
+                                        itemCount: productController
+                                            .productsList.length,
+                                        shrinkWrap: true,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return ProductItem(
+                                              product: productController
+                                                  .productsList[index]);
+                                        }),
+                                  ),
+                                );
+                            })
+                          ],
+                        );
                     }),
                   ),
                 ),

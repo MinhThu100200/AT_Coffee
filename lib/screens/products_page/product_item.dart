@@ -66,7 +66,7 @@ class _ProductItem extends State<ProductItem> {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white))),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 3,
                           ),
                           Container(
@@ -144,7 +144,10 @@ class _ProductItem extends State<ProductItem> {
                           borderRadius: BorderRadius.circular(10),
                           child:
                               Image.network(_product.image, fit: BoxFit.contain,
-                                  loadingBuilder: (BuildContext context,
+                                  errorBuilder: (BuildContext context,
+                                      Object exception, StackTrace stackTrace) {
+                            return Text('😢');
+                          }, loadingBuilder: (BuildContext context,
                                       Widget child,
                                       ImageChunkEvent loadingProgress) {
                             if (loadingProgress == null) {

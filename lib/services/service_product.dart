@@ -10,6 +10,19 @@ class RemoteServices {
         .get(Uri.parse(ApiConstants.HOST + ApiConstants.GET_PRODUCT));
     if (response.statusCode == 200) {
       var jsonString = response.body;
+      //print(response.body);
+      return productFromJson(jsonString);
+    } else {
+      //show error message
+      return null;
+    }
+  }
+
+  static Future<List<Product>> fetchProductsByCategory(cate) async {
+    var response = await client.get(Uri.parse(
+        ApiConstants.HOST + ApiConstants.GET_PRODUCT_BY_CATEGORY(cate)));
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
       print(response.body);
       return productFromJson(jsonString);
     } else {

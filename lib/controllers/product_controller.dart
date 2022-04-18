@@ -8,7 +8,7 @@ class ProductController extends GetxController {
 
   @override
   void onInit() {
-    fetchProducts();
+    //fetchProducts();
     super.onInit();
   }
 
@@ -16,6 +16,18 @@ class ProductController extends GetxController {
     try {
       isLoading(true);
       var products = await RemoteServices.fetchProducts();
+      if (products != null) {
+        productsList.value = products;
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  void fetchProductsByCategory(cate) async {
+    try {
+      isLoading(true);
+      var products = await RemoteServices.fetchProductsByCategory(cate);
       if (products != null) {
         productsList.value = products;
       }
