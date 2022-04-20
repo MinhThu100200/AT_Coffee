@@ -29,13 +29,22 @@ class _ProductsPage extends State<ProductsPage> {
     setState(() {});
   }
 
+  final CategoryController categoryController = Get.put(CategoryController());
+  // final StoreController storeController = Get.put(StoreController());
+  final ProductController productController = Get.put(ProductController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      productController.fetchProductsByCategory(codeCategory[0]);
+      //print("Build Completed");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final CategoryController categoryController = Get.put(CategoryController());
-    // final StoreController storeController = Get.put(StoreController());
-    final ProductController productController = Get.put(ProductController());
-    productController.fetchProductsByCategory("COFFEE");
-
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -89,97 +98,90 @@ class _ProductsPage extends State<ProductsPage> {
                             topRight: Radius.circular(40)),
                         color: white),
                     child: Obx(() {
-                      if (categoryController.isLoading.value)
-                        return Center(child: CircularProgressIndicator());
-                      else
-                        return Flex(
-                          direction: Axis.vertical,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.only(
-                                  top: 10, left: 10, right: 10),
-                              height: 70,
-                              child: Center(
-                                child: ListView.builder(
-                                  itemCount:
-                                      categoryController.categoriesList.length,
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setStateValue(index);
-                                        productController
-                                            .fetchProductsByCategory(
-                                                codeCategory[index]);
-                                      },
-                                      child: Container(
-                                        //width: 100,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: indexCategory == index
-                                              ? primary
-                                              : lightGray3,
-                                        ),
-                                        margin: const EdgeInsets.only(
-                                            right: 15, bottom: 10),
-                                        padding: const EdgeInsets.all(10),
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              height: 50,
-                                              width: 32,
-                                              padding: EdgeInsets.only(
-                                                top: index == 0 ? 8 : 5,
-                                                bottom: 5,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
-                                                  color: indexCategory == index
-                                                      ? lightGreen
-                                                      : lightGreen2),
-                                              child: Image.asset(
-                                                  nameImage[index].toString(),
-                                                  //height: index == 0 ? 30 : 50,
-                                                  fit: BoxFit.fitHeight),
-                                            ),
-                                            Text(
-                                                categoryController
-                                                    .categoriesList[index].name,
-                                                style: TextStyle(fontSize: 16)),
-                                          ],
-                                        ),
+                      return Flex(
+                        direction: Axis.vertical,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 10, right: 10),
+                            height: 70,
+                            child: Center(
+                              child: ListView.builder(
+                                itemCount:
+                                    categoryController.categoriesList.length,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      setStateValue(index);
+                                      productController.fetchProductsByCategory(
+                                          codeCategory[index]);
+                                    },
+                                    child: Container(
+                                      //width: 100,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: indexCategory == index
+                                            ? primary
+                                            : lightGray3,
                                       ),
-                                    );
-                                  },
-                                ),
+                                      margin: const EdgeInsets.only(
+                                          right: 15, bottom: 10),
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 50,
+                                            width: 32,
+                                            padding: EdgeInsets.only(
+                                              top: index == 0 ? 8 : 5,
+                                              bottom: 5,
+                                            ),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                color: indexCategory == index
+                                                    ? lightGreen
+                                                    : lightGreen2),
+                                            child: Image.asset(
+                                                nameImage[index].toString(),
+                                                //height: index == 0 ? 30 : 50,
+                                                fit: BoxFit.fitHeight),
+                                          ),
+                                          Text(
+                                              categoryController
+                                                  .categoriesList[index].name,
+                                              style: TextStyle(fontSize: 16)),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
-                            Obx(() {
-                              if (productController.isLoading.value)
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              else
-                                return Expanded(
-                                  child: Container(
-                                    child: ListView.builder(
-                                        itemCount: productController
-                                            .productsList.length,
-                                        shrinkWrap: true,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return ProductItem(
-                                              product: productController
-                                                  .productsList[index]);
-                                        }),
-                                  ),
-                                );
-                            })
-                          ],
-                        );
+                          ),
+                          Obx(() {
+                            if (productController.isLoading.value)
+                              return Center(child: CircularProgressIndicator());
+                            else
+                              return Expanded(
+                                child: Container(
+                                  child: ListView.builder(
+                                      itemCount:
+                                          productController.productsList.length,
+                                      shrinkWrap: true,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return ProductItem(
+                                            product: productController
+                                                .productsList[index]);
+                                      }),
+                                ),
+                              );
+                          })
+                        ],
+                      );
                     }),
                   ),
                 ),
