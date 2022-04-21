@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:at_coffee/common/theme/colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:at_coffee/models/product.dart';
+import 'package:at_coffee/controllers/rate_controller.dart';
 
 class OrderPage extends StatefulWidget {
   OrderPage({Key key, this.product}) : super(key: key);
@@ -18,11 +20,13 @@ enum SizeEnum { S, M, L }
 class _OrderPage extends State<OrderPage> {
   Product _product;
 
+  RateController rateController = Get.put(new RateController());
+
   int _quantity = 1;
 
   final String _urlDefault = "assets/images/coffee.png";
   final String _urlSelected = "assets/images/ice-tea.png";
-  
+
   String _urlS = "";
   String _urlM = "";
   String _urlL = "";
@@ -64,6 +68,7 @@ class _OrderPage extends State<OrderPage> {
     super.initState();
     _product = widget.product;
     _updateSize(SizeEnum.L);
+    rateController.fetchRates(_product.id);
   }
 
   @override
@@ -95,7 +100,7 @@ class _OrderPage extends State<OrderPage> {
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image.network(_product.image,
-                              height: 150, width: 150, fit: BoxFit.cover))),
+                              height: 150, width: 150, fit: BoxFit.contain))),
                 ),
                 Positioned(
                   left: size.width * 0.10 - 24.0,
@@ -643,7 +648,6 @@ class _OrderPage extends State<OrderPage> {
               child: Text("-----Nhận xét và đánh giá-----",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             ),
-
           ]))),
         ),
         Container(

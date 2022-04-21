@@ -5,28 +5,26 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 
-List<Reward> rewardFromJson(String str) {
-  final data = json.decode(str)['rewards'];
-  return List<Reward>.from(json.decode(str).map((x) => Reward.fromJson(x)));
-}
+List<Rate> rateFromJson(String str) =>
+    List<Rate>.from(json.decode(str).map((x) => Rate.fromJson(x)));
 
-String rewardToJson(List<Reward> data) =>
+String rateToJson(List<Rate> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Reward {
-  Reward({
-    this.id,
-    this.createdDate,
-    this.modifiedDate,
-    this.createdBy,
-    this.modifiedBy,
-    this.code,
-    this.state,
-    this.results,
-    this.name,
-    this.proviso,
-    this.redution,
-  });
+class Rate {
+  Rate(
+      {this.id,
+      this.createdDate,
+      this.modifiedDate,
+      this.createdBy,
+      this.modifiedBy,
+      this.code,
+      this.state,
+      this.results,
+      this.comment,
+      this.star,
+      this.userId,
+      this.productId});
 
   int id;
   int createdDate;
@@ -36,11 +34,12 @@ class Reward {
   String code;
   bool state;
   List<dynamic> results;
-  String name;
-  int proviso;
-  double redution;
+  String comment;
+  int star;
+  int userId;
+  int productId;
 
-  factory Reward.fromJson(Map<String, dynamic> json) => Reward(
+  factory Rate.fromJson(Map<String, dynamic> json) => Rate(
         id: json["id"],
         createdDate: json["createdDate"],
         modifiedDate: json["modifiedDate"],
@@ -49,9 +48,10 @@ class Reward {
         code: json["code"],
         state: json["state"],
         results: json["results"],
-        name: json["name"],
-        proviso: json["proviso"],
-        redution: json["redution"],
+        comment: json["comments"],
+        star: json["star"],
+        userId: json["userId"],
+        productId: json["productId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -63,8 +63,9 @@ class Reward {
         "code": code,
         "state": state,
         "results": results,
-        "name": name,
-        "proviso": proviso,
-        "redution": redution,
+        "comment": comment,
+        "star": star,
+        "userId": userId,
+        "productId": productId
       };
 }

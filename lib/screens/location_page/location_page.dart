@@ -1,23 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:at_coffee/screens/on_boarding.dart';
-import 'package:at_coffee/screens/login_page/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:at_coffee/common/theme/colors.dart';
-import 'package:at_coffee/common/widgets/header.dart';
 import 'package:get/get.dart';
 import 'package:at_coffee/controllers/store_controller.dart';
-
-// class SignUpPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(fontFamily: 'avenir'),
-//       home: signupPage(),
-//     );
-//   }
-// }
 
 class LocationPage extends StatefulWidget {
   @override
@@ -48,6 +33,7 @@ class _locationPageState extends State<LocationPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: lightGray3,
       body: Container(
@@ -179,7 +165,10 @@ class _locationPageState extends State<LocationPage> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                    child: Text("A&T Coffee",
+                                                    child: Text(
+                                                        storeController
+                                                            .storesList[index]
+                                                            .name,
                                                         style: TextStyle(
                                                             fontSize: 11,
                                                             fontWeight:
@@ -191,7 +180,9 @@ class _locationPageState extends State<LocationPage> {
                                                   ),
                                                   Container(
                                                     child: Text(
-                                                        "81/1 Thạnh Xuân 43",
+                                                        storeController
+                                                            .storesList[index]
+                                                            .address,
                                                         style: TextStyle(
                                                             fontSize: 15)),
                                                   ),
