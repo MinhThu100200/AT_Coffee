@@ -4,6 +4,7 @@ import 'package:at_coffee/common/theme/colors.dart';
 import 'package:at_coffee/screens/location_page/location_page.dart';
 import 'package:at_coffee/screens/order_page/order_page.dart';
 import 'package:at_coffee/screens/products_page/products_page.dart';
+import 'package:at_coffee/screens/reward_page/reward_page.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key key}) : super(key: key);
@@ -27,9 +28,7 @@ class _RootAppState extends State<RootApp> {
       index: pageIndex,
       children: [
         ProductsPage(),
-        Center(
-          child: Text("Reward page"),
-        ),
+        RewardPage(),
         LocationPage(),
         Center(
           child: Text("Notification Page"),

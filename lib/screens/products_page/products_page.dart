@@ -117,7 +117,7 @@ class _ProductsPage extends State<ProductsPage> {
                                       setStateValue(index);
                                       productController.fetchProductsByCategory(
                                           codeCategory[index]);
-                                    },
+                                    }, 
                                     child: Container(
                                       //width: 100,
                                       decoration: BoxDecoration(

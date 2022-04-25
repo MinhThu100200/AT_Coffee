@@ -48,7 +48,7 @@ class Rate {
         code: json["code"],
         state: json["state"],
         results: json["results"],
-        comment: json["comments"],
+        comment: json["comment"],
         star: json["star"],
         userId: json["userId"],
         productId: json["productId"],

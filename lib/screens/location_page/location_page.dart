@@ -10,15 +10,6 @@ class LocationPage extends StatefulWidget {
 }
 
 class _locationPageState extends State<LocationPage> {
-  final _email = TextEditingController();
-  bool _validateEmail = false;
-  final _password = TextEditingController();
-  bool _validatePassword = false;
-  final _passwordConfirm = TextEditingController();
-  bool _validatePasswordConfirm = false;
-  bool _isHidePasswordConfirm = true;
-  bool _isHidestatePassword = true;
-
   List<String> listTab = ["Gần đây", "Tất cả"];
 
   int selectedTab = 0;
@@ -128,8 +119,8 @@ class _locationPageState extends State<LocationPage> {
                               margin:
                                   const EdgeInsets.only(left: 16, right: 10),
                               child: ListView.builder(
-                                  //itemCount: storeController.storesList.length,
-                                  itemCount: listTab.length,
+                                  itemCount: storeController.storesList.length,
+                                  //itemCount: listTab.length,
                                   shrinkWrap: true,
                                   itemBuilder:
                                       (BuildContext context, int index) {

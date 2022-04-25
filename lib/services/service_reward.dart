@@ -10,7 +10,7 @@ class RemoteServices {
         .get(Uri.parse(ApiConstants.HOST + ApiConstants.GET_REWARD));
     if (response.statusCode == 200) {
       var jsonString = response.body;
-      //print(response.body);
+      print("reaward" + response.body);
       return rewardFromJson(jsonString);
     } else {
       //show error message
