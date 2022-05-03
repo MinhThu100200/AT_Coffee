@@ -5,7 +5,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:at_coffee/models/product.dart';
+import 'package:at_coffee/screens/cart_page/cart_page.dart';
 import 'package:at_coffee/controllers/rate_controller.dart';
+import 'package:at_coffee/controllers/cart_controller.dart';
+import 'package:at_coffee/controllers/user_controller.dart';
+import 'package:at_coffee/controllers/payment_controller.dart';
 
 class OrderPage extends StatefulWidget {
   OrderPage({Key key, this.product}) : super(key: key);
@@ -21,6 +25,9 @@ class _OrderPage extends State<OrderPage> {
   Product _product;
 
   RateController rateController = Get.put(new RateController());
+  CartController cartController = Get.put(new CartController());
+  UserController userController = Get.put(new UserController());
+  PaymentController paymentController = Get.put(new PaymentController());
 
   int _quantity = 1;
 
@@ -69,6 +76,10 @@ class _OrderPage extends State<OrderPage> {
     _product = widget.product;
     _updateSize(SizeEnum.L);
     rateController.fetchRates(_product.id);
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      cartController.fetchCartsByCustomerId(userController.user.value.id);
+    });
   }
 
   @override
@@ -905,13 +916,19 @@ class _OrderPage extends State<OrderPage> {
                     color: primary,
                     height: 60.0,
                     width: size.width / 3,
-                    child: TextButton(
-                        onPressed: () {},
-                        child: const Text("Giỏ hàng (0)",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: Colors.white)))),
+                    child: TextButton(onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => CartPage()));
+                    }, child: Obx(() {
+                      return Text(
+                          'Giỏ hàng (' +
+                              cartController.cartsList.length.toString() +
+                              ')',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: Colors.white));
+                    }))),
                 Container(
                     color: lightGray3,
                     height: 60.0,

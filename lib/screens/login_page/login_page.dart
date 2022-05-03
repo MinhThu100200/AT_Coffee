@@ -5,6 +5,7 @@ import 'package:at_coffee/common/theme/colors.dart';
 import 'package:at_coffee/screens/signup_page/sign_up_page.dart';
 import 'package:at_coffee/screens/root_app/root_app.dart';
 import 'package:get/get.dart';
+import 'package:at_coffee/controllers/user_controller.dart';
 
 // class LoginPage extends StatelessWidget {
 //   @override
@@ -29,11 +30,23 @@ class _loginPageState extends State<LoginPage> {
   bool _validatePassword = false;
   bool _statePassword = true;
 
+  UserController userController = Get.put(new UserController());
+
   @override
   void dispose() {
     _email.dispose();
     _password.dispose();
     super.dispose();
+  }
+
+  void _login(String email, String password) {
+    // Data Fixed - Change
+    userController.fetchUser('0975226327', '12345');
+    if (userController.user != null) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => new RootApp()));
+      // Get.off(() => new RootApp());
+    }
   }
 
   @override
@@ -208,7 +221,7 @@ class _loginPageState extends State<LoginPage> {
                             });
                             if (!_password.text.isEmpty &&
                                 !_email.text.isEmpty) {
-                              Get.off(() => new RootApp());
+                              _login(_email.text, _password.text);
                             }
                           },
                           child: Container(

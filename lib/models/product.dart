@@ -76,10 +76,8 @@ class Product {
         numberReviewers: json["numberReviewers"],
         categories: List<Category>.from(
             json["categories"].map((x) => Category.fromJson(x))),
-        stores: List<Store>.from(
-            json["stores"].map((x) => Store.fromJson(x))),
-        sizes: List<Size>.from(
-            json["sizes"].map((x) => Size.fromJson(x))),
+        stores: List<Store>.from(json["stores"].map((x) => Store.fromJson(x))),
+        sizes: List<Size>.from(json["sizes"].map((x) => Size.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

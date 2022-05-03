@@ -1,10 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+// common
 import 'package:at_coffee/common/theme/colors.dart';
+// screens
 import 'package:at_coffee/screens/location_page/location_page.dart';
 import 'package:at_coffee/screens/order_page/order_page.dart';
 import 'package:at_coffee/screens/products_page/products_page.dart';
 import 'package:at_coffee/screens/reward_page/reward_page.dart';
+import 'package:at_coffee/screens/cart_page/cart_page.dart';
+import 'package:at_coffee/screens/profile_page/profile_page.dart';
+// controllers
+import 'package:at_coffee/controllers/cart_controller.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key key}) : super(key: key);
@@ -14,6 +21,9 @@ class RootApp extends StatefulWidget {
 }
 
 class _RootAppState extends State<RootApp> {
+  // get carts
+  final cartController = Get.put(CartController());
+
   int pageIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -30,12 +40,14 @@ class _RootAppState extends State<RootApp> {
         ProductsPage(),
         RewardPage(),
         LocationPage(),
+        // CartPage(),
         Center(
           child: Text("Notification Page"),
         ),
-        Center(
-          child: Text("Personal Page"),
-        ),
+        ProfilePage(),
+        // Center(
+        //   child: Text("Personal Page"),
+        // ),
       ],
     );
   }
